@@ -5,7 +5,8 @@ const ThemeContext = createContext(null);
 
 // เอาไว้ครอบตัวที่จะเรียกใช้ได้
 function ThemeContextProvider({ children }) {
-  const [theme, setTheme] = useState("myTheme");
+  const [theme, setTheme] = useState("center");
+
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
       {children}
@@ -13,4 +14,4 @@ function ThemeContextProvider({ children }) {
   );
 }
 
-export {ThemeContext,ThemeContextProvider}
+export { ThemeContext, ThemeContextProvider };
