@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { Input, Label, Button, Alert } from "reactstrap";
 import { MoneyAtmContext } from "../../context/MoneyAtmContext";
+import { FaCheck } from "react-icons/fa";
 
 function WithdrawWindow() {
   const showlog = false;
@@ -116,11 +117,11 @@ function WithdrawWindow() {
         onChange={outAmountChange}
       />{" "}
       <br />{" "}
-      <Button color="danger" outline>
+      <Button color="primary" outline>
         cancle
       </Button>{" "}
-      <Button color="danger" onClick={withdrawBtnClick}>
-        withdraw
+      <Button color="primary" onClick={withdrawBtnClick}>
+      <FaCheck/> withdraw
       </Button>
       <br />
       {info ? <Alert color={infoColor}>{info}</Alert> : null}

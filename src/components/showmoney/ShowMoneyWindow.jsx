@@ -2,6 +2,10 @@ import { MoneyAtmContext } from "../../context/MoneyAtmContext";
 import { useContext } from "react";
 import { Table } from "reactstrap";
 
+import { HiBanknotes } from "react-icons/hi2";
+import { GiBallPyramid } from "react-icons/gi";
+import { FaHistory } from "react-icons/fa";
+
 function ShowMoneyWindow(params) {
   const { moneyAtm, moneyAtmTotal } = useContext(MoneyAtmContext);
   let filteredMoney = moneyAtm.filter((O) => O.quantity > 0);
@@ -12,8 +16,8 @@ function ShowMoneyWindow(params) {
       <Table>
         <thead>
           <tr>
-            <th>Bank note type</th>
-            <th>Quantity</th>
+            <th><HiBanknotes/> Bank note type</th>
+            <th><GiBallPyramid/> Quantity</th>
           </tr>
         </thead>
         <tbody>

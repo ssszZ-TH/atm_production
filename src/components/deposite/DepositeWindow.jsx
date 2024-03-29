@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { Table } from "reactstrap";
+import { InputGroup, InputGroupText, Input,Button } from "reactstrap";
+
+import { FaCheck } from "react-icons/fa";
 
 function DepositeWindow() {
   const [Inbank1000, setInBank1000] = useState(0);
@@ -72,57 +74,103 @@ function DepositeWindow() {
   return (
     <>
       <br />
-      <Table>
-        <thead>
-          <tr>
-            <th>Class</th>
-            <th>Heading</th>
-            <th>Heading</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr className="table-primary">
-            <td>primary</td>
-            <td>Cell</td>
-            <td>Cell</td>
-          </tr>
-          <tr className="table-secondary">
-            <td>secondary</td>
-            <td>Cell</td>
-            <td>Cell</td>
-          </tr>
-          <tr className="table-success">
-            <td>success</td>
-            <td>Cell</td>
-            <td>Cell</td>
-          </tr>
-          <tr className="table-danger">
-            <td>danger</td>
-            <td>Cell</td>
-            <td>Cell</td>
-          </tr>
-          <tr className="table-warning">
-            <td>warning</td>
-            <td>Cell</td>
-            <td>Cell</td>
-          </tr>
-          <tr className="table-info">
-            <td>info</td>
-            <td>Cell</td>
-            <td>Cell</td>
-          </tr>
-          <tr className="table-light">
-            <td>light</td>
-            <td>Cell</td>
-            <td>Cell</td>
-          </tr>
-          <tr className="table-dark">
-            <td>dark</td>
-            <td>Cell</td>
-            <td>Cell</td>
-          </tr>
-        </tbody>
-      </Table>
+
+      <InputGroup>
+        <InputGroupText>bank1000</InputGroupText>
+        <Input
+          type="number"
+          min={0}
+          value={Inbank1000}
+          onChange={handleInBank1000Change}
+        />
+      </InputGroup>
+      <br />
+      <InputGroup>
+        <InputGroupText>bank500</InputGroupText>
+        <Input
+          type="number"
+          min={0}
+          value={Inbank500}
+          onChange={handleInBank500Change}
+        />
+      </InputGroup>
+      <br />
+      <InputGroup>
+        <InputGroupText>bank100</InputGroupText>
+        <Input
+          type="number"
+          min={0}
+          value={Inbank100}
+          onChange={handleInBank100Change}
+        />
+      </InputGroup>
+      <br />
+      <InputGroup>
+        <InputGroupText>bank50</InputGroupText>
+        <Input
+          type="number"
+          min={0}
+          value={Inbank50}
+          onChange={handleInBank50Change}
+        />
+      </InputGroup>
+      <br />
+      <InputGroup>
+        <InputGroupText>bank20</InputGroupText>
+        <Input
+          type="number"
+          min={0}
+          value={Inbank20}
+          onChange={handleInBank20Change}
+        />
+      </InputGroup>
+      <br />
+      <InputGroup>
+        <InputGroupText>bank10</InputGroupText>
+        <Input
+          type="number"
+          min={0}
+          value={Inbank10}
+          onChange={handleInBank10Change}
+        />
+      </InputGroup>
+      <br />
+      <InputGroup>
+        <InputGroupText>bank5</InputGroupText>
+        <Input
+          type="number"
+          min={0}
+          value={Inbank5}
+          onChange={handleInBank5Change}
+        />
+      </InputGroup>
+      <br />
+      <InputGroup>
+        <InputGroupText>bank2</InputGroupText>
+        <Input
+          type="number"
+          min={0}
+          value={Inbank2}
+          onChange={handleInBank2Change}
+        />
+      </InputGroup>
+      <br />
+      <InputGroup>
+        <InputGroupText>bank1</InputGroupText>
+        <Input
+          type="number"
+          min={0}
+          value={Inbank1}
+          onChange={handleInBank1Change}
+        />
+      </InputGroup>
+      <br />
+      <Button color="primary" outline>
+        cancle
+      </Button>{" "}
+      <Button color="primary" >
+        <FaCheck /> Deposite
+      </Button>
     </>
   );
 }

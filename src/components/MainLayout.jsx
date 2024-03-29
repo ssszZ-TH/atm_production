@@ -10,6 +10,9 @@ import { WithdrawWindow } from "./withdraw/WithdrawWindow";
 
 
 import { Nav, NavItem, NavLink } from "reactstrap";
+import { FaEye, FaBitcoin,FaHistory} from "react-icons/fa";
+import { BiMoneyWithdraw } from "react-icons/bi";
+
 
 function MainLayout(params) {
   const { theme, setTheme } = useContext(ThemeContext);
@@ -37,22 +40,22 @@ function MainLayout(params) {
       <Nav tabs>
         <NavItem>
           <NavLink className={tab==0?"active":""} onClick={tab1click}>
-            Showmoney
+            <FaEye/> Showmoney
           </NavLink>
         </NavItem>
         <NavItem>
           <NavLink className={tab==1?"active":""} onClick={tab2click}>
-            Deposite
+            <FaBitcoin/> Deposite
           </NavLink>
         </NavItem>
         <NavItem>
           <NavLink className={tab==2?"active":""} onClick={tab3click}>
-            Withdraw
+          <BiMoneyWithdraw/> Withdraw
           </NavLink>
         </NavItem>
         <NavItem>
           <NavLink className={tab==3?"active":""} onClick={tab4click}>
-            History
+            <FaHistory />History
           </NavLink>
         </NavItem>
       </Nav>
