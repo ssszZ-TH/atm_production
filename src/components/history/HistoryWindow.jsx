@@ -1,5 +1,5 @@
 function HistoryWindow() {
-    return(<>i am history window</>);
+    return(<>need back end to call history</>);
 }
 
 export {HistoryWindow}

@@ -34,7 +34,7 @@ function MainLayout(params) {
 
   return (
     <>
-      <Nav tabs justified>
+      <Nav tabs pills fill>
         <NavItem>
           <NavLink className={tab == 0 ? "active" : ""} onClick={tab1click}>
             <FaEye /> Showmoney

@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { Input, Label, Button, Alert } from "reactstrap";
 import { MoneyAtmContext } from "../../context/MoneyAtmContext";
 import { FaCheck } from "react-icons/fa";
+import { Receipt } from "./Reciept";
 
 function WithdrawWindow() {
   const showlog = false;
@@ -22,6 +23,9 @@ function WithdrawWindow() {
   // console.log("money atm total",moneyAtmTotal);
 
   const [dispensMoneyObj, setDispensMoneyObj] = useState([]);
+  const [dispensMoneyAmount, setDispensMoneyAmount] = useState(0);
+
+  const [showReciept, setShowReciept] = useState(false);
 
   const [visibleInfo, setVisibleInfo] = useState(true);
 
@@ -33,7 +37,6 @@ function WithdrawWindow() {
     setInfo("");
     setVisibleInfo(false);
     //clone ค่ามาจาก react state
-    let saved_moneyObj = structuredClone(moneyAtm);
     let temp_moneyObj = structuredClone(moneyAtm);
     let temp_outAmount = outAmount;
 
@@ -112,7 +115,9 @@ function WithdrawWindow() {
     if (showlog) console.log("เงินที่ออกมาในรูปเเบบ object", outBankObj);
     setDispensMoneyObj(outBankObj);
     moneyAtmChanged();
+    setDispensMoneyAmount(outAmount); // เงินที่จะป้อนให้ใบเสร็จ
     setOutAmount(0);
+    setShowReciept(true);
   };
 
   // end of withdraw process ///////////////////////////////////////////////////////
@@ -147,6 +152,12 @@ function WithdrawWindow() {
         <Alert color={infoColor} isOpen={visibleInfo} toggle={onDismiss}>
           {info}
         </Alert>
+      ) : null}
+      {showReciept ? (
+        <Receipt
+          banks={dispensMoneyObj}
+          dispensMoneyAmount={dispensMoneyAmount}
+        />
       ) : null}
     </>
   );
