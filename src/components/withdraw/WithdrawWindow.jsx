@@ -6,7 +6,7 @@ import { FaCheck } from "react-icons/fa";
 function WithdrawWindow() {
   const showlog = false;
   const [info, setInfo] = useState("");
-  const [infoColor, setInfoColor] = useState("primary");
+  const [infoColor, setInfoColor] = useState("");
   const [outAmount, setOutAmount] = useState(0);
   function outAmountChange(e) {
     if (e.target.value < 0) {
@@ -23,10 +23,15 @@ function WithdrawWindow() {
 
   const [dispensMoneyObj, setDispensMoneyObj] = useState([]);
 
+  const [visibleInfo, setVisibleInfo] = useState(true);
+
+  const onDismiss = () => setVisibleInfo(false);
+
   ////// start withdraw process ///////////////////////////////////
 
   const withdrawBtnClick = () => {
     setInfo("");
+    setVisibleInfo(false);
     //clone ค่ามาจาก react state
     let saved_moneyObj = structuredClone(moneyAtm);
     let temp_moneyObj = structuredClone(moneyAtm);
@@ -34,12 +39,16 @@ function WithdrawWindow() {
 
     if (temp_outAmount == 0) {
       setInfo("ถอนเงิน 0 บาท ไม่ได้");
+      setInfoColor("danger");
+      setVisibleInfo(true);
       return;
     }
 
     //กรณีถอนเงินมากกว่าที่ตู้ มี
     if (temp_outAmount > moneyAtmTotal) {
       setInfo("เงินในตู้ไม่พอสำหรับการถอน");
+      setInfoColor("danger");
+      setVisibleInfo(true);
       return;
     }
 
@@ -71,10 +80,14 @@ function WithdrawWindow() {
           String(temp_outAmount) +
           "บาท กรุณาถอนเป็นจำนวนเงินถ้วนๆ"
       );
+      setInfoColor("danger");
+      setVisibleInfo(true);
       // !! ยกเลิกการถอนเงินที่ทำมาทั้งหมด
       return;
     }
     setInfo("ถอนเงินสำเร็จ");
+    setInfoColor("success");
+    setVisibleInfo(true);
     if (showlog) console.log("เงินที่ออกเเบบ array", outBankArr);
     if (showlog) console.log("เงินที่เหลือเเบบ array", atmMoneyArr);
     // ต้องเอาค่าไป set ลง react state อีก
@@ -107,7 +120,7 @@ function WithdrawWindow() {
   return (
     <>
       <br />
-      <Label for="withdraw">Amount</Label>
+      <Label>Amount</Label>
       <Input
         id="exampleNumber"
         name="number"
@@ -117,14 +130,24 @@ function WithdrawWindow() {
         onChange={outAmountChange}
       />{" "}
       <br />{" "}
-      <Button color="primary" outline>
+      <Button
+        color="primary"
+        outline
+        onClick={() => {
+          setOutAmount(0);
+        }}
+      >
         cancle
       </Button>{" "}
       <Button color="primary" onClick={withdrawBtnClick}>
-      <FaCheck/> withdraw
+        <FaCheck /> withdraw
       </Button>
       <br />
-      {info ? <Alert color={infoColor}>{info}</Alert> : null}
+      {info ? (
+        <Alert color={infoColor} isOpen={visibleInfo} toggle={onDismiss}>
+          {info}
+        </Alert>
+      ) : null}
     </>
   );
 }

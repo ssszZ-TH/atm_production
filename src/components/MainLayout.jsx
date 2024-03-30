@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import { ThemeContext } from "../context/ThemeContext";
-import { TestButton } from "./TestButton";
 
 import { DepositeWindow } from "./deposite/DepositeWindow";
 import { HistoryWindow } from "./history/HistoryWindow";
@@ -55,7 +54,7 @@ function MainLayout(params) {
         </NavItem>
         <NavItem>
           <NavLink className={tab==3?"active":""} onClick={tab4click}>
-            <FaHistory />History
+            <FaHistory /> History
           </NavLink>
         </NavItem>
       </Nav>

@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { InputGroup, InputGroupText, Input,Button } from "reactstrap";
+import { useContext, useState } from "react";
+import { InputGroup, InputGroupText, Input, Button, Alert } from "reactstrap";
+import { MoneyAtmContext } from "../../context/MoneyAtmContext";
 
 import { FaCheck } from "react-icons/fa";
 
@@ -43,9 +44,50 @@ function DepositeWindow() {
 
   const showlog = false;
 
+  const { moneyAtm, setMoneyAtm, moneyAtmChanged } =
+    useContext(MoneyAtmContext);
+
+  const [info, setInfo] = useState("");
+  const [infoColor, setInfoColor] = useState("");
+
+  const [dispensMoneyObj, setDispensMoneyObj] = useState([]);
+
+  const [visibleInfo, setVisibleInfo] = useState(true);
+
+  const onDismiss = () => setVisibleInfo(false);
+
+  function clearform() {
+    setInBank1000(0);
+    setInBank500(0);
+    setInBank100(0);
+    setInBank50(0);
+    setInBank20(0);
+    setInBank10(0);
+    setInBank5(0);
+    setInBank2(0);
+    setInBank1(0);
+  }
+
   const depositeBtnClick = () => {
-    //ยังไม่เส็ด !!
-    let temp_moneyObj = structuredClone(money_obj);
+    if (
+      Number(Inbank1000) +
+        Number(Inbank500) +
+        Number(Inbank100) +
+        Number(Inbank50) +
+        Number(Inbank20) +
+        Number(Inbank10) +
+        Number(Inbank5) +
+        Number(Inbank2) +
+        Number(Inbank1) <=
+      0
+    ) {
+      //กรณีที่ไม่ฝากเงิน เเล้วกดยืนยัน
+      setInfo("จำนวนเงินไม่ถูกต้อง");
+      setInfoColor("danger");
+      setVisibleInfo(true)
+      return;
+    }
+    let temp_moneyObj = structuredClone(moneyAtm);
     let temp_moneyArr = temp_moneyObj.map((i) => i.quantity);
     temp_moneyArr[0] += Number(Inbank1000);
     temp_moneyArr[1] += Number(Inbank500);
@@ -66,15 +108,19 @@ function DepositeWindow() {
         quantity: temp_moneyArr[i],
       };
     }
-    console.log("state เงินใหม่หลังจาก update เส็ดเเล้ว", newAtmBankState);
-    set_money_obj(newAtmBankState);
-    setShowReceipt(false);
+    if (showlog)
+      console.log("state เงินใหม่หลังจาก update เส็ดเเล้ว", newAtmBankState);
+    setMoneyAtm(newAtmBankState);
+    moneyAtmChanged();
+    setInfo("ฝากเงินสำเร็จ");
+    setInfoColor("success");
+    setVisibleInfo(true)
+    clearform();
   };
 
   return (
     <>
       <br />
-
       <InputGroup>
         <InputGroupText>bank1000</InputGroupText>
         <Input
@@ -165,12 +211,19 @@ function DepositeWindow() {
         />
       </InputGroup>
       <br />
-      <Button color="primary" outline>
+      <Button color="primary" outline onClick={clearform}>
         cancle
       </Button>{" "}
-      <Button color="primary" >
+      <Button color="primary" onClick={depositeBtnClick}>
         <FaCheck /> Deposite
       </Button>
+      {info ? (
+        <Alert color={infoColor} isOpen={visibleInfo} toggle={onDismiss}>
+          {info}
+        </Alert>
+      ) : (
+        <></>
+      )}
     </>
   );
 }
